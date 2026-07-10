@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SiMPore — Precision Nanomembrane Products</title>
+<style>
+  :root{
+    --teal:#00DDC4;
+    --purple:#3D1C8B;
+    --purple-dark:#2A1263;
+    --ink:#181022;
+    --gray:#6b6675;
+    --bg-soft:#F7F6FA;
+    --white:#ffffff;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif;
+    color:var(--ink);
+    background:var(--white);
+    line-height:1.55;
+  }
+  img{max-width:100%;display:block;}
+  a{text-decoration:none;color:inherit;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+  section{padding:88px 0;}
+  h1,h2,h3{font-weight:700;letter-spacing:-0.01em;}
+  .section-head{max-width:640px;margin:0 auto 48px;text-align:center;}
+  .section-head h2{font-size:36px;margin-bottom:14px;color:var(--purple-dark);}
+  .section-head p{color:var(--gray);font-size:17px;}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:14px 30px;border-radius:8px;font-weight:600;font-size:15px;cursor:pointer;transition:transform .15s ease,box-shadow .15s ease;border:none;}
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:var(--teal);color:var(--purple-dark);box-shadow:0 8px 24px rgba(0,221,196,.35);}
+  .btn-outline{background:transparent;color:var(--white);border:1.5px solid rgba(255,255,255,.7);}
+  .btn-outline:hover{background:rgba(255,255,255,.12);}
+  .btn-purple{background:var(--purple);color:var(--white);box-shadow:0 8px 24px rgba(61,28,139,.3);}
+
+  /* NAV */
+  header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid #eee;}
+  nav{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;max-width:1180px;margin:0 auto;}
+  nav .logo img{height:32px;}
+  nav ul{display:flex;gap:34px;list-style:none;}
+  nav ul a{font-size:15px;font-weight:600;color:var(--ink);}
+  nav ul a:hover{color:var(--purple);}
+  .nav-cta{display:flex;align-items:center;gap:20px;}
+  .nav-cta .btn{padding:11px 22px;font-size:14px;}
+
+  /* HERO */
+  .hero{position:relative;min-height:88vh;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+  .hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;}
+  .hero::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(24,16,34,.72) 0%,rgba(42,18,99,.75) 55%,rgba(24,16,34,.85) 100%);z-index:1;}
+  .hero-content{position:relative;z-index:2;text-align:center;max-width:760px;margin:0 auto;padding:0 24px;display:flex;flex-direction:column;align-items:center;}
+  .hero-content h1{color:var(--white);font-size:52px;line-height:1.12;margin-bottom:22px;}
+  .hero-content h1 span{color:var(--teal);}
+  .hero-content p{color:rgba(255,255,255,.85);font-size:18px;max-width:600px;margin-bottom:36px;}
+  .hero-actions{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;}
+
+  /* PRODUCT LINES */
+  .lines{background:var(--bg-soft);}
+  .line-row{display:flex;align-items:center;gap:64px;margin-bottom:88px;}
+  .line-row:last-child{margin-bottom:0;}
+  .line-row.rev{flex-direction:row-reverse;}
+  .line-media,.line-text{flex:1;min-width:0;}
+  .line-media{background:var(--white);border-radius:16px;padding:40px;display:flex;align-items:center;justify-content:center;box-shadow:0 20px 50px rgba(61,28,139,.08);}
+  .line-media img{max-height:280px;width:auto;margin:0 auto;}
+  .line-text .tag{display:inline-block;background:rgba(0,221,196,.15);color:var(--purple);font-size:12.5px;font-weight:700;letter-spacing:.05em;padding:5px 12px;border-radius:99px;margin-bottom:16px;text-transform:uppercase;}
+  .line-text h3{font-size:30px;color:var(--purple-dark);margin-bottom:14px;}
+  .line-text p{color:var(--gray);font-size:16px;margin-bottom:22px;}
+  .line-text a.more{font-weight:700;color:var(--purple);display:inline-flex;align-items:center;gap:6px;}
+  .line-text a.more:hover{color:var(--teal);}
+
+  /* PRODUCT GRID */
+  .grid-products{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
+  .pcard{background:var(--white);border-radius:14px;overflow:hidden;box-shadow:0 4px 18px rgba(24,16,34,.08);transition:transform .18s ease,box-shadow .18s ease;}
+  .pcard:hover{transform:translateY(-6px);box-shadow:0 16px 34px rgba(24,16,34,.14);}
+  .pcard .pimg{background:var(--bg-soft);padding:26px;display:flex;align-items:center;justify-content:center;height:170px;}
+  .pcard .pimg img{max-height:120px;width:auto;}
+  .pcard .pinfo{padding:18px 20px 22px;}
+  .pcard .pcat{font-size:11.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--teal);margin-bottom:6px;}
+  .pcard h4{font-size:16px;margin-bottom:8px;color:var(--ink);}
+  .pcard .pprice{font-size:15px;font-weight:700;color:var(--purple-dark);margin-bottom:14px;}
+  .pcard .pbtn{display:block;text-align:center;padding:10px;border-radius:7px;background:var(--bg-soft);color:var(--purple-dark);font-weight:600;font-size:14px;}
+  .pcard .pbtn:hover{background:var(--purple);color:var(--white);}
+  .grid-more{text-align:center;margin-top:44px;}
+
+  /* CUSTOM CTA BAND */
+  .custom-band{background:linear-gradient(120deg,var(--purple) 0%,var(--purple-dark) 100%);color:var(--white);text-align:center;}
+  .custom-band h2{font-size:34px;margin-bottom:16px;}
+  .custom-band p{max-width:560px;margin:0 auto 30px;color:rgba(255,255,255,.82);font-size:17px;}
+  .custom-band .btn-outline{border-color:rgba(255,255,255,.5);}
+
+  /* WHY STRIP */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;text-align:center;}
+  .stats .stat h3{font-size:34px;color:var(--purple);margin-bottom:6px;}
+  .stats .stat p{color:var(--gray);font-size:14.5px;}
+
+  /* TESTIMONIALS */
+  .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
+  .tcard{background:var(--bg-soft);border-radius:14px;padding:32px;}
+  .tcard .stars{color:var(--teal);font-size:16px;margin-bottom:16px;letter-spacing:2px;}
+  .tcard p.quote{font-size:15.5px;color:var(--ink);margin-bottom:22px;}
+  .tcard .who{display:flex;align-items:center;gap:12px;}
+  .tcard .avatar{width:42px;height:42px;border-radius:50%;background:var(--purple);color:var(--white);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;}
+  .tcard .who strong{display:block;font-size:14.5px;}
+  .tcard .who span{font-size:13px;color:var(--gray);}
+
+  /* CONTACT */
+  .contact-wrap{display:grid;grid-template-columns:0.85fr 1.15fr;gap:64px;background:var(--bg-soft);border-radius:20px;padding:56px;}
+  .contact-info h2{font-size:30px;color:var(--purple-dark);margin-bottom:14px;}
+  .contact-info p{color:var(--gray);margin-bottom:28px;font-size:15.5px;}
+  .contact-info .row{display:flex;gap:14px;margin-bottom:20px;align-items:flex-start;}
+  .contact-info .row .ico{width:38px;height:38px;border-radius:9px;background:rgba(0,221,196,.16);color:var(--purple);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:17px;}
+  .contact-info .row strong{display:block;font-size:14.5px;}
+  .contact-info .row span{font-size:14px;color:var(--gray);}
+  form{background:var(--white);border-radius:14px;padding:36px;box-shadow:0 10px 30px rgba(24,16,34,.06);}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px;}
+  .field{display:flex;flex-direction:column;gap:7px;}
+  .field label{font-size:13.5px;font-weight:600;color:var(--ink);}
+  .field input,.field select,.field textarea{padding:12px 14px;border-radius:8px;border:1.5px solid #E4E1EC;font-size:14.5px;font-family:inherit;background:var(--white);}
+  .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--teal);}
+  form .full{margin-bottom:18px;}
+  form button{width:100%;margin-top:6px;}
+  #formMsg{margin-top:14px;font-size:14px;color:var(--purple);font-weight:600;display:none;}
+
+  footer{background:var(--purple-dark);color:rgba(255,255,255,.78);padding:60px 0 26px;}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;margin-bottom:44px;}
+  .foot-grid img{height:28px;margin-bottom:16px;filter:brightness(0) invert(1);}
+  .foot-grid p{font-size:14px;color:rgba(255,255,255,.6);}
+  .foot-grid h5{color:var(--white);font-size:14.5px;margin-bottom:16px;}
+  .foot-grid ul{list-style:none;display:flex;flex-direction:column;gap:11px;}
+  .foot-grid ul a{font-size:14px;color:rgba(255,255,255,.68);}
+  .foot-grid ul a:hover{color:var(--teal);}
+  .foot-bottom{border-top:1px solid rgba(255,255,255,.12);padding-top:24px;display:flex;justify-content:space-between;font-size:13px;color:rgba(255,255,255,.5);flex-wrap:wrap;gap:10px;}
+
+  @media(max-width:900px){
+    nav ul{display:none;}
+    .hero-content h1{font-size:36px;}
+    .line-row,.line-row.rev{flex-direction:column;}
+    .grid-products{grid-template-columns:repeat(2,1fr);}
+    .stats{grid-template-columns:repeat(2,1fr);gap:28px;}
+    .testi-grid{grid-template-columns:1fr;}
+    .contact-wrap{grid-template-columns:1fr;padding:32px;}
+    .form-row{grid-template-columns:1fr;}
+    .foot-grid{grid-template-columns:1fr 1fr;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="#" class="logo"><img src="assets/simpore-logo-horizontal-color.svg" alt="SiMPore"></a>
+    <ul>
+      <li><a href="#products">Products</a></li>
+      <li><a href="#tem">TEM &amp; X-Ray</a></li>
+      <li><a href="#filters">Microplastic Filters</a></li>
+      <li><a href="#testimonials">Testimonials</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="#contact" class="btn btn-primary">Request a Quote</a>
+    </div>
+  </nav>
+</header>
+
+<section class="hero">
+  <video autoplay muted loop playsinline>
+    <source src="assets/videos/abstract-fluid-wave-with-perforated-surface-and-fl-2026-01-28-04-33-07-utc.mp4" type="video/mp4">
+  </video>
+  <div class="hero-content">
+    <h1>Precision Nanomembranes for <span>Research That Can't Fail</span></h1>
+    <p>SiMPore engineers ultra-thin silicon membrane products — TEM grids, porous membrane chips, and microplastic filter disks — built for labs that need reproducible, high-resolution results.</p>
+    <div class="hero-actions">
+      <a href="#products" class="btn btn-primary">Shop Products</a>
+      <a href="#custom" class="btn btn-outline">Request a Custom Solution</a>
+    </div>
+  </div>
+</section>
+
+<section class="lines" id="products">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Our Core Product Lines</h2>
+      <p>Three specialized product families, engineered on the same freely-suspended silicon nanomembrane platform.</p>
+    </div>
+
+    <div class="line-row" id="tem">
+      <div class="line-media"><img src="https://simpore.com/wp-content/uploads/2025/05/SN100-A05L-double-hex-dkgray-300x300.png" alt="TEM Silicon Nitride Grid"></div>
+      <div class="line-text">
+        <span class="tag">TEM &amp; X-Ray Windows</span>
+        <h3>TEM Grids &amp; X-Ray Windows</h3>
+        <p>Ultra-thin silicon nitride and pure silicon grids engineered specifically for high-resolution transmission electron microscopy and X-ray microscopy — from single-window to lift-out formats.</p>
+        <a href="#" class="more">Shop TEM &amp; X-Ray Windows →</a>
+      </div>
+    </div>
+
+    <div class="line-row rev">
+      <div class="line-media"><img src="https://simpore.com/wp-content/uploads/2024/05/PMC-2LWMS-double-dkblue-300x300.png" alt="Porous Membrane Chip"></div>
+      <div class="line-text">
+        <span class="tag">Life Sciences</span>
+        <h3>Porous Membrane Chips for Cell Culture</h3>
+        <p>Dual-scale micro- and nanoporous membrane chips built for cell culture, co-culture, and nanoparticle isolation — giving researchers exceptional control and repeatability across assays.</p>
+        <a href="#" class="more">Shop Porous Membrane Chips →</a>
+      </div>
+    </div>
+
+    <div class="line-row" id="filters">
+      <div class="line-media"><img src="https://simpore.com/wp-content/uploads/2022/05/Gold-Coated-Filter-Disc-300x300.png" alt="Microplastic Filter Disk"></div>
+      <div class="line-text">
+        <span class="tag">Environmental Science</span>
+        <h3>Microplastic Filter Disks</h3>
+        <p>Gold-coated and noncoated filter disk sets purpose-built for capturing and analyzing microplastic particles — supporting environmental research into the growth of plastic pollution.</p>
+        <a href="#" class="more">Shop Microplastic Filters →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Featured Products</h2>
+      <p>A snapshot of what's in the shop, across grids, membrane chips, filters, and lab accessories.</p>
+    </div>
+    <div class="grid-products">
+      <div class="pcard">
+        <div class="pimg"><img src="https://simpore.com/wp-content/uploads/2022/02/SN100-A20MP2Q05-double-round-dkgray-300x300.png" alt="TEM Silicon Nitride Grids – Single Window"></div>
+        <div class="pinfo"><div class="pcat">TEM Grids</div><h4>TEM Silicon Nitride Grids — Single Window</h4><div class="pprice">$191.90 – $399.80</div><a href="#" class="pbtn">View Details</a></div>
+      </div>
+      <div class="pcard">
+        <div class="pimg"><img src="https://simpore.com/wp-content/uploads/2022/02/US100-A05Q00-double-oval-ltbrown-300x300.png" alt="TEM Pure Silicon Grids – Single Window"></div>
+        <div class="pinfo"><div class="pcat">TEM Grids</div><h4>TEM Pure Silicon Grids — Single Window</h4><div class="pprice">$506.40</div><a href="#" class="pbtn">View Details</a></div>
+      </div>
+      <div class="pcard">
+        <div class="pimg"><img src="https://simpore.com/wp-content/uploads/2022/02/X05-A200Q15-double-300x300.png" alt="X-Ray Silicon Nitride Windows"></div>
+        <div class="pinfo"><div class="pcat">X-Ray Windows</div><h4>X-Ray Silicon Nitride Windows</h4><div class="pprice">$465.80 – $621.00</div><a href="#" class="pbtn">View Details</a></div>
+      </div>
+      <div class="pcard">
+        <div class="pimg"><img src="https://simpore.com/wp-content/uploads/2022/02/100-1L-double-ltblue-300x300.png" alt="Dual-Scale Micro+Nanoporous Membrane Chips"></div>
+        <div class="pinfo"><div class="pcat">Life Sciences</div><h4>Dual-Scale Micro+Nanoporous Chips</h4><div class="pprice">$621.00</div><a href="#" class="pbtn">View Details</a></div>
+      </div>
+      <div class="pcard">
+        <div class="pimg"><img src="https://simpore.com/wp-content/uploads/2022/02/400-3L-double-green-300x300.png" alt="Microporous Membrane Chips"></div>
+        <div class="pinfo"><div class="pcat">Life Sciences</div><h4>Microporous Membrane Chips</h4><div class="pprice">$586.30</div><a href="#" class="pbtn">View Details</a></div>
+      </div>
+      <div class="pcard">
+        <div class="pimg"><img src="https://simpore.com/wp-content/uploads/2022/05/Non-Coated-Filter-Disc-300x300.png" alt="Filter Disk Sets – Noncoated"></div>
+        <div class="pinfo"><div class="pcat">Microplastic Filters</div><h4>Filter Disk Sets — Noncoated</h4><div class="pprice">$639.00</div><a href="#" class="pbtn">View Details</a></div>
+      </div>
+      <div class="pcard">
+        <div class="pimg"><img src="https://simpore.com/wp-content/uploads/2022/05/liftout-grid-Goldcontacts-300x300.png" alt="TEM Lift-Out Grids"></div>
+        <div class="pinfo"><div class="pcat">TEM Grids</div><h4>TEM Lift-Out Grids</h4><div class="pprice">$201.80 – $842.20</div><a href="#" class="pbtn">View Details</a></div>
+      </div>
+      <div class="pcard">
+        <div class="pimg"><img src="https://simpore.com/wp-content/uploads/2022/05/Tweezer_square-300x300.jpg" alt="K6TWZR Tweezers"></div>
+        <div class="pinfo"><div class="pcat">Accessories</div><h4>TEM Window Handling Tweezers</h4><div class="pprice">$18.20</div><a href="#" class="pbtn">View Details</a></div>
+      </div>
+    </div>
+    <div class="grid-more"><a href="#" class="btn btn-purple">View All Products</a></div>
+  </div>
+</section>
+
+<section class="custom-band" id="custom">
+  <div class="wrap">
+    <h2>Don't See What You Need?</h2>
+    <p>Our engineering team designs and manufactures custom nanomembrane solutions tailored to your exact specifications — from pore geometry to substrate material.</p>
+    <a href="#contact" class="btn btn-outline">Start a Custom Inquiry</a>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat"><h3>ISO 9001</h3><p>Certified quality management</p></div>
+      <div class="stat"><h3>25+</h3><p>Precision membrane product lines</p></div>
+      <div class="stat"><h3>USA</h3><p>Designed &amp; manufactured in-house</p></div>
+      <div class="stat"><h3>3</h3><p>Research fields served: life sciences, environmental &amp; materials science, microscopy</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="testimonials" style="background:var(--bg-soft);">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Trusted by Researchers</h2>
+      <p>What labs say after switching to SiMPore's nanomembrane products.</p>
+    </div>
+    <div class="testi-grid">
+      <div class="tcard">
+        <div class="stars">★★★★★</div>
+        <p class="quote">"The consistency of the silicon nitride grids has cut our sample prep failures dramatically. Repeatability across batches is exactly what we needed."</p>
+        <div class="who"><div class="avatar">RM</div><div><strong>R. Martinez</strong><span>TEM Core Facility Manager, University Lab</span></div></div>
+      </div>
+      <div class="tcard">
+        <div class="stars">★★★★★</div>
+        <p class="quote">"We moved our cell culture assays onto SiMPore's porous membrane chips and saw a real jump in imaging clarity and data quality."</p>
+        <div class="who"><div class="avatar">JK</div><div><strong>J. Kim</strong><span>Senior Research Scientist, Biotech Lab</span></div></div>
+      </div>
+      <div class="tcard">
+        <div class="stars">★★★★★</div>
+        <p class="quote">"The gold-coated filter disks made microplastic quantification in our water samples faster and far more precise than our previous method."</p>
+        <div class="who"><div class="avatar">AT</div><div><strong>A. Torres</strong><span>Environmental Research Lead</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-wrap">
+      <div class="contact-info">
+        <h2>Get in Touch</h2>
+        <p>Have a question about a product, or need a custom solution? Reach out and our team will follow up.</p>
+        <div class="row"><div class="ico">✉</div><div><strong>Email</strong><span>info@simpore.com</span></div></div>
+        <div class="row"><div class="ico">☎</div><div><strong>Phone</strong><span>888-323-NANO (6266)</span></div></div>
+        <div class="row"><div class="ico">📍</div><div><strong>Address</strong><span>150 Lucius Gordon Dr, Suite 110<br>West Henrietta, NY 14586 USA</span></div></div>
+      </div>
+      <form id="contactForm">
+        <div class="form-row">
+          <div class="field"><label>Full Name</label><input type="text" required></div>
+          <div class="field"><label>Email</label><input type="email" required></div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label>Company / Institution</label><input type="text"></div>
+          <div class="field"><label>Inquiry Type</label>
+            <select>
+              <option>Product Question</option>
+              <option>Custom Solution Request</option>
+              <option>Order / Shipping</option>
+              <option>General Inquiry</option>
+            </select>
+          </div>
+        </div>
+        <div class="field full">
+          <label>Message</label>
+          <textarea rows="4" required placeholder="Tell us about your application or request..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Send Message</button>
+        <p id="formMsg">Thanks — this is a mockup form, no message was actually sent.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <img src="assets/simpore-logo-horizontal-color.svg" alt="SiMPore">
+        <p>Precision silicon nanomembrane products for life sciences, environmental science, and electron microscopy.</p>
+      </div>
+      <div>
+        <h5>Products</h5>
+        <ul>
+          <li><a href="#tem">TEM &amp; X-Ray Windows</a></li>
+          <li><a href="#products">Porous Membrane Chips</a></li>
+          <li><a href="#filters">Microplastic Filters</a></li>
+          <li><a href="#">Accessories</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Company</h5>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#custom">Custom Solutions</a></li>
+          <li><a href="#testimonials">Testimonials</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Contact</h5>
+        <ul>
+          <li>888-323-NANO (6266)</li>
+          <li>info@simpore.com</li>
+          <li>West Henrietta, NY</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 SiMPore. All rights reserved.</span>
+      <span>Redesign mockup prepared by JMP Financial</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('contactForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    document.getElementById('formMsg').style.display = 'block';
+  });
+</script>
+
+</body>
+</html>
