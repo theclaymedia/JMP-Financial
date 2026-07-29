@@ -169,6 +169,11 @@
             height: 100%;
             object-fit: cover;
             z-index: 0;
+            opacity: 0;
+            transition: opacity 1.2s ease-in-out;
+        }
+        .hero video.is-active {
+            opacity: 1;
         }
         .hero::after {
             content: '';
@@ -190,6 +195,12 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+        }
+        .hero-logo {
+            height: 120px;
+            width: auto;
+            margin-bottom: 30px;
+            filter: brightness(0) invert(1);
         }
         .hero-content h1 {
             color: var(--white);
@@ -590,6 +601,10 @@
             nav ul {
                 display: none;
             }
+            .hero-logo {
+                height: 80px;
+                margin-bottom: 22px;
+            }
             .hero-content h1 {
                 font-size: 36px;
             }
@@ -642,10 +657,14 @@
 
     <!-- ─── HERO ─── -->
     <section class="hero">
-        <video autoplay muted loop playsinline>
-            <source src="assets/videos/abstract-fluid-wave-with-perforated-surface-and-fl-2026-01-28-04-33-07-utc.mp4" type="video/mp4" />
+        <video id="heroVideo1" class="is-active" autoplay muted loop playsinline preload="auto">
+            <source src="assets/videos/hero-video-1.mp4" type="video/mp4" />
+        </video>
+        <video id="heroVideo2" autoplay muted loop playsinline preload="auto">
+            <source src="assets/videos/hero-video-2.mp4" type="video/mp4" />
         </video>
         <div class="hero-content">
+            <img class="hero-logo" src="assets/simpore-logo-horizontal-color.svg" alt="SiMPore" />
             <h1>Precision Nanomembranes for <span>Research That Can't Fail</span></h1>
             <p>SiMPore engineers ultra-thin silicon membrane products — TEM grids, porous membrane chips, and microplastic filter disks — built for labs that need reproducible, high-resolution results.</p>
             <div class="hero-actions">
@@ -874,6 +893,31 @@
             e.preventDefault();
             document.getElementById('formMsg').style.display = 'block';
         });
+
+        /* ── HERO: crossfade between the two background videos ── */
+        (function() {
+            var videos = [
+                document.getElementById('heroVideo1'),
+                document.getElementById('heroVideo2')
+            ];
+            var current = 0;
+            var SWITCH_EVERY = 7000; // ms each video is shown before crossfading
+
+            videos.forEach(function(v) {
+                var p = v.play();
+                if (p && p.catch) { p.catch(function() {}); }
+            });
+
+            setInterval(function() {
+                var next = (current + 1) % videos.length;
+                videos[next].currentTime = 0;
+                var p = videos[next].play();
+                if (p && p.catch) { p.catch(function() {}); }
+                videos[next].classList.add('is-active');
+                videos[current].classList.remove('is-active');
+                current = next;
+            }, SWITCH_EVERY);
+        })();
     </script>
 
 </body>
